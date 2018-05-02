@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    ajax ajax ajax fgghjkjl
+    <script>
+        //创建对象
+        let xml = null;
+        if (window.XMLHttpRequest) {
+            xml = new XMLHttpRequest();
+        } else {
+            xml = ActiveXObject('Microfost-XMLHTTP');
+        }
+        //判断服务器状态（如果是异步的话，在哪里判断都没问题，如果是同步的话，就要在***发送请求请求之前***判断，因为请求成功后的请求状态码是4，此时状态码不会再发生改变，就不会再触发onreadystatechange事件，也走不到判断响应状态码这一步，所以就无法响应到数据）
+        xml.onreadystatechange = function() {
+                if (xml.readyState === 4) {
+                    if (xml.status === 200) {
+                        console.log(xml.responseText)
+                    }
+                }
+            }
+            //连接服务器，发送请求
+            // get方式  url+?+地址栏参数   send为空
+        xml.open('get', '/list?name=lili&age=26', true);
+        xml.send(null);
+
+        //post请求方式  连接服务器，设置请求头，发送请求
+        // xml.open('post', '/list', true);
+        // xml.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+        // xml.send('name=lili&age=26'); //send里必须以字符串格式发送
+    </script>
+</body>
+
+</html>
